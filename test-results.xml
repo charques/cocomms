@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="0.0030" tests="2" failures="0">
+  <testsuite name="Root Suite" timestamp="2021-03-12T21:54:48" tests="0" time="0.0000" failures="0">
+  </testsuite>
+  <testsuite name="my awesome project" timestamp="2021-03-12T21:54:48" tests="2" file="/Users/charques/Dev/cocomms/test/test.js" time="0.0030" failures="0">
+    <testcase name="my awesome project should work" time="0.0020" classname="should work">
+    </testcase>
+    <testcase name="my awesome project should work (with ack)" time="0.0010" classname="should work (with ack)">
+    </testcase>
+  </testsuite>
+</testsuites>

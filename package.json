@@ -1,0 +1,20 @@
+{
+    "name": "cocomms",
+    "version": "0.0.1",
+    "description": "my coccoms app",
+    "scripts": {
+        "test": "./node_modules/.bin/mocha 'test/**/*.js' --recursive --timeout 60000 --exit",
+        "test-junit": "./node_modules/.bin/mocha 'test/**/*.js' --recursive --reporter mocha-junit-reporter --timeout 60000 --exit"
+    },
+    "dependencies": {
+        "express": "^4.17.1",
+        "node-redis-pubsub": "^5.0.0",
+        "redis": "^3.0.2",
+        "uuid": "^8.3.2"
+    },
+    "devDependencies": {
+        "chai": "^4.3.4",
+        "mocha": "^8.3.2",
+        "mocha-junit-reporter": "^2.0.0"
+    }
+}
