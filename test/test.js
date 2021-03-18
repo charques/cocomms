@@ -5,9 +5,12 @@ var expect = chai.expect;
 
 describe("cocomms project", () => {
 
-  it("comms-common source", (done) => {
+  it("communication api - single", (done) => {
     const xbroker = require("../src/x-broker");
-    const xnotification = require("../src/x-notification");
+    const xnotification = require("../src/x-communication");
+    const xdistributionEmail = require("../src/x-distribution-email");
+    const xdistributionSms = require("../src/x-distribution-sms");
+    const xdistributionPush = require("../src/x-distribution-push");
 
     const urlBase = 'http://localhost:3000'
 
@@ -27,15 +30,15 @@ describe("cocomms project", () => {
 
     request.post(
       {
-        url : urlBase + "/notification",
+        url : urlBase + "/communication",
         json: commRequest
       },
       function(error, response, body){
-        // using chai expect function, lets check the result
+        console.log(body.commId)
         expect(response.statusCode).to.equal(200);
         expect(body).to.have.property('commId');
 
-        done(); // callback the test runner to indicate the end...
+        done();
       }
     );
 

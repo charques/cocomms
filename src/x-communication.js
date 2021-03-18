@@ -12,7 +12,7 @@ app.use(require('morgan')('dev'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.use(require('./routes/notification-routes'));
+app.use(require('./communication/routes/communication.routes'));
 
 // finally, let's start our server...
 var server = app.listen( process.env.PORT || 3000, function(){

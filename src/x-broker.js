@@ -1,2 +1,2 @@
-const commSharedSource = require("./c-broker/data-sources/comm-common.source");
-commSharedSource.init();
+const brokerSource = require("./broker/sources/broker.source");
+brokerSource.init();
