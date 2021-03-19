@@ -6,11 +6,12 @@ var expect = chai.expect;
 describe("cocomms project", () => {
 
   it("communication api - single", (done) => {
-    const xbroker = require("../src/x-broker");
-    const xnotification = require("../src/x-communication");
-    const xdistributionEmail = require("../src/x-distribution-email");
-    const xdistributionSms = require("../src/x-distribution-sms");
-    const xdistributionPush = require("../src/x-distribution-push");
+    const xbroker = require("../src/x-broker-stream");
+    const xnotificationApi = require("../src/x-communication-api");
+    const xcontactApi = require("../src/x-contact-api");
+    const xdistributionEmail = require("../src/x-distribution-email-stream");
+    const xdistributionSms = require("../src/x-distribution-sms-stream");
+    const xdistributionPush = require("../src/x-distribution-push-stream");
 
     const urlBase = 'http://localhost:3000'
 
@@ -23,9 +24,21 @@ describe("cocomms project", () => {
       1: 'sms',
       2: 'push',
     };
-    var  commRequest = {
+    /*var commRequest = {
       type : types[getRandomInt(3)],
       message: "my-message " +  + Math.random()
+    };*/
+
+    var commRequest = {
+      commTarget: {
+        profileId: '0000-0001'
+      },
+      commDistribution: {
+        channelId: 'my-push-channel'
+      },
+      commMessage: {
+        message: "my-message " +  + Math.random()
+      }
     };
 
     request.post(
@@ -36,7 +49,7 @@ describe("cocomms project", () => {
       function(error, response, body){
         console.log(body.commId)
         expect(response.statusCode).to.equal(200);
-        expect(body).to.have.property('commId');
+        expect(body).to.have.property('commIds');
 
         done();
       }
