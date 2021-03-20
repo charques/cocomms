@@ -16,10 +16,6 @@ describe("cocomms project", () => {
 
     const urlBase = 'http://localhost:3000'
 
-    function getRandomInt(max) {
-      return Math.floor(Math.random() * Math.floor(max));
-    }
-
     let channels = {
       0: 'my-sms-channel',
       1: 'my-email-channel',
@@ -27,35 +23,44 @@ describe("cocomms project", () => {
       3: 'my-inbound-channel',
     };
 
-    var commRequest = {
-      commTarget: {
-        profileId: '0000-0001'
-      },
-      commDistribution: {
-        channelId: channels[getRandomInt(4)]
-      },
-      commMessage: {
-        templateId: 'my-template',
-        templateParams: {
-          greeting1: 'hola',
-          greeting2: 'mundo'
+    function getRandomInt(max) {
+      return Math.floor(Math.random() * Math.floor(max));
+    }
+
+    function sendComm() {
+      var commRequest = {
+        commTarget: {
+          profileId: '0000-0001'
+        },
+        commDistribution: {
+          channelId: channels[getRandomInt(4)]
+        },
+        commMessage: {
+          templateId: 'my-template',
+          templateParams: {
+            greeting1: 'hola',
+            greeting2: 'mundo'
+          }
         }
-      }
-    };
+      };
 
-    request.post(
-      {
-        url : urlBase + "/communication",
-        json: commRequest
-      },
-      function(error, response, body){
-        console.log(body.commId)
-        expect(response.statusCode).to.equal(200);
-        expect(body).to.have.property('commIds');
+      request.post(
+        {
+          url : urlBase + "/communication",
+          json: commRequest
+        },
+        function(error, response, body){
+          console.log('commIds ' +  body.commIds)
+          expect(response.statusCode).to.equal(200);
+          expect(body).to.have.property('commIds');
+  
+          //done();
+        }
+      );
+    }
 
-        done();
-      }
-    );
+    setInterval(sendComm, 1000);
+    setTimeout(done, 10000)
 
   });
 });

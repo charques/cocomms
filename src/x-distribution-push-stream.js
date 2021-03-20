@@ -1,2 +1,2 @@
-const distributionSource = require("./distribution/sources/distribution.source");
-distributionSource.init("push");
+const distributionSource = require('./distribution/sources/distribution.source');
+distributionSource.init('push');
