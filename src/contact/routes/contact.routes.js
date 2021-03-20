@@ -8,7 +8,6 @@ router.get('/contact', async function(req, res, next){
   console.log('/contact ' + profileId + ' '+ type);
 
   // TODO validate profile, type
-
   let contacts = await contactService.getContactsByProfile(profileId, type);
 
   return res.json(contacts);

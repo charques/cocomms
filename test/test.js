@@ -9,6 +9,7 @@ describe("cocomms project", () => {
     const xbroker = require("../src/x-broker-stream");
     const xnotificationApi = require("../src/x-communication-api");
     const xcontactApi = require("../src/x-contact-api");
+    const xtemplateApi = require("../src/x-template-api");
     const xdistributionEmail = require("../src/x-distribution-email-stream");
     const xdistributionSms = require("../src/x-distribution-sms-stream");
     const xdistributionPush = require("../src/x-distribution-push-stream");
@@ -19,25 +20,26 @@ describe("cocomms project", () => {
       return Math.floor(Math.random() * Math.floor(max));
     }
 
-    let types = {
-      0: 'email',
-      1: 'sms',
-      2: 'push',
+    let channels = {
+      0: 'my-sms-channel',
+      1: 'my-email-channel',
+      2: 'my-push-channel',
+      3: 'my-inbound-channel',
     };
-    /*var commRequest = {
-      type : types[getRandomInt(3)],
-      message: "my-message " +  + Math.random()
-    };*/
 
     var commRequest = {
       commTarget: {
         profileId: '0000-0001'
       },
       commDistribution: {
-        channelId: 'my-push-channel'
+        channelId: channels[getRandomInt(4)]
       },
       commMessage: {
-        message: "my-message " +  + Math.random()
+        templateId: 'my-template',
+        templateParams: {
+          greeting1: 'hola',
+          greeting2: 'mundo'
+        }
       }
     };
 
@@ -56,30 +58,4 @@ describe("cocomms project", () => {
     );
 
   });
-
-  /*it("comms-common source", (done) => {
-
-    const commSharedSource = require("../src/c-broker/data-sources/comm-common.source");
-    commSharedSource.init();
-
-    const redis = require('redis');
-    const publisher = redis.createClient();
-
-    let types = {
-        0: 'email',
-        1: 'sms',
-        2: 'push',
-    };
-    var  commRequest = {
-        type : types[getRandomInt(3)],
-        msg: "my-message " +  + Math.random()
-    };
-    setInterval( function() {
-      publisher.publish("comms-common", commRequest)
-    }, 10000);
-
-    function getRandomInt(max) {
-        return Math.floor(Math.random() * Math.floor(max));
-    }
-    });*/
 });

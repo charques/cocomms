@@ -1,11 +1,13 @@
 var emailSink = require('../sinks/email.sink')
 var smsSink = require('../sinks/sms.sink')
 var pushSink = require('../sinks/push.sink')
+var inboundSink = require('../sinks/inbound.sink')
 
 let sinks = {
     'email': emailSink.send,
     'sms': smsSink.send,
-    'push': pushSink.send
+    'push': pushSink.send,
+    'inbound': inboundSink.send
 };
 
 exports.split = async function (communication) {

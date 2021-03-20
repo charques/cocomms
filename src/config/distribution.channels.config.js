@@ -8,6 +8,9 @@ let channelConfig = {
     'my-sms-channel': {
         type: 'sms'
     },
+    'my-inbound-channel': {
+        type: 'inbound'
+    }
 }
 
  exports.configByChannelId = function (channelId) {
