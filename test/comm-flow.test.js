@@ -3,9 +3,9 @@ const request = require("request");
 var chai = require("chai");
 var expect = chai.expect;
 
-describe("cocomms project", () => {
+describe("comm flow tests", () => {
 
-  it("communication api - single", (done) => {
+  it("post random comms through communication api", (done) => {
     const xbroker = require("../src/x-broker-stream");
     const xnotificationApi = require("../src/x-communication-api");
     const xcontactApi = require("../src/x-contact-api");
@@ -53,8 +53,6 @@ describe("cocomms project", () => {
           console.log('commIds ' +  body.commIds)
           expect(response.statusCode).to.equal(200);
           expect(body).to.have.property('commIds');
-  
-          //done();
         }
       );
     }
