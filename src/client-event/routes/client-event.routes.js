@@ -1,17 +1,21 @@
-var router = require('express').Router();
-var clientEventService = require('../services/client-event.service')
+const router = require('express').Router();
+const clientEventService = require('../services/client-event.service')
 
-router.post('/client-event/:appId/activity/:eventType', async function(req, res, next){
-  let appId = req.params.appId;
-  let eventType = req.params.eventType;
+router.post('/client-event/:clientId/activity/:activityType', async function(req, res, next){
+  let clientId = req.params.clientId;
+  let activityType = req.params.activityType;
   let activityEvent = req.body;
-  console.log('1 - /client-event/' + appId + '/activity/' + eventType + ' - ' + JSON.stringify(activityEvent));
+  console.log('1 - /client-event/' + clientId + '/activity/' + activityType + ' - ' + JSON.stringify(activityEvent));
 
   // TODO validate clientId, eventType, activityEvent
-
-  let processResult = await clientEventService.logActivity(appId, eventType, activityEvent);
-
-  return res.json({processResult: processResult});
+  try {
+    let processResult = await clientEventService.logActivity(clientId, activityType, activityEvent);
+    return res.json({activityProcessed: processResult});
+  }
+  catch (e) {
+    res.status(418)
+    return res.json({message: e.message});
+  }
 });
 
 module.exports = router;
