@@ -11,10 +11,14 @@
         "cors": "^2.8.5",
         "express": "^4.17.1",
         "morgan": "^1.10.0",
+        "node-fetch": "^2.6.1",
         "node-redis-pubsub": "^5.0.0",
         "opentracing": "^0.14.5",
         "redis": "^3.0.2",
-        "uuid": "^8.3.2"
+        "uuid": "^8.3.2",
+        "zipkin": "^0.22.0",
+        "zipkin-instrumentation-fetch": "^0.22.0",
+        "zipkin-transport-http": "^0.22.0"
     },
     "devDependencies": {
         "chai": "^4.3.4",

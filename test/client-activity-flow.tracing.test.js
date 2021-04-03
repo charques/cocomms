@@ -144,12 +144,39 @@ describe("client activity flow tests", () => {
       .then(resp => {
         expect(resp.status).to.equal(200);
         expect(resp.data).to.have.property('activityProcessed');
-        //done();
         resolve();
       })
 
     });
+  });
 
+  it("tracing activity post 3", (done) => {
+    // https://github.com/openzipkin/zipkin-js-example/tree/master/web
+
+    const fetch = require('node-fetch');
+    const clientEventZipkinRecorder = require('../src/fe-clients/ot-tracer/client-event-zipkin-recorder');
+    const {Tracer, ExplicitContext} = require('zipkin');
+
+    const ctxImpl = new ExplicitContext();
+    const localServiceName = 'browser';
+    // TODO: pass context
+    const recorder = clientEventZipkinRecorder.getRecorder(localServiceName);
+    const tracer = new Tracer({ctxImpl, recorder, localServiceName});
+
+    // instrument fetch
+    const wrapFetch = require('zipkin-instrumentation-fetch');
+    const zipkinFetch = wrapFetch(fetch, {tracer});
+
+    const log = text => console.log(text);
+
+    // wrap fetch call so that it is traced
+    zipkinFetch('http://localhost:8081/')
+      .then(response => (response.text()))
+      .then(text => log(text))
+      .catch(err =>  {
+        log(`Failed: ${err.stack}`)
+        done();
+      });
   });
 
 });
