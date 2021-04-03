@@ -5,6 +5,9 @@ let consumptionConfig = {
         },
         tracing: {
             active: true
+        },
+        security: {
+            active: true
         }
     },
     '0001-0002': {

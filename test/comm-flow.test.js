@@ -58,7 +58,7 @@ describe("comm flow tests", () => {
     }
 
     setInterval(sendComm, 1000);
-    setTimeout(done, 10000)
+    setTimeout(done, 4000)
 
   });
 });

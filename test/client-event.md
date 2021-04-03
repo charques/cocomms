@@ -8,6 +8,7 @@ use case
 - analytics
     - page load
     - action
+    - ...
 - security
     - profile change
     - trusteer
