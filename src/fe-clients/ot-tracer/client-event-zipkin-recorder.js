@@ -6,7 +6,8 @@ const clientEventZipkinLogger = require("./client-event-zipkin-logger");
   function getRecorder(serviceName) {
     const logger = clientEventZipkinLogger.getLogger({
       url: 'dldkldkd'
-    })
+    });
+    
     const batchRecorder = new BatchRecorder({logger});
     return ({
       record: (rec) => {

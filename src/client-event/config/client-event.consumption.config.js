@@ -6,7 +6,7 @@ let consumptionConfig = {
         tracing: {
             active: true
         },
-        security: {
+        private: {
             active: true
         }
     },
@@ -15,10 +15,10 @@ let consumptionConfig = {
             active: false
         }
     }
-}
+};
 
  exports.isActivityTypeActive = function (clientId, activityType) {
     return consumptionConfig[clientId] && 
         consumptionConfig[clientId][activityType] && 
         consumptionConfig[clientId][activityType].active;
- }
+ };

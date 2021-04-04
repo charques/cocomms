@@ -14,7 +14,7 @@ describe("comm flow tests", () => {
     const xdistributionSms = require("../src/x-distribution-sms-stream");
     const xdistributionPush = require("../src/x-distribution-push-stream");
 
-    const urlBase = 'http://localhost:3000'
+    const urlBase = 'http://localhost:3000';
 
     let channels = {
       0: 'my-sms-channel',
@@ -50,7 +50,7 @@ describe("comm flow tests", () => {
           json: commRequest
         },
         function(error, response, body){
-          console.log('commIds ' +  body.commIds)
+          console.log('commIds ' +  body.commIds);
           expect(response.statusCode).to.equal(200);
           expect(body).to.have.property('commIds');
         }
@@ -58,7 +58,7 @@ describe("comm flow tests", () => {
     }
 
     setInterval(sendComm, 1000);
-    setTimeout(done, 4000)
+    setTimeout(done, 4000);
 
   });
 });

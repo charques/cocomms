@@ -20,7 +20,7 @@ describe("client activity flow tests", () => {
       origin: "foo.example.com",
       "User-Agent": "User-Agent value",
       "X-AccessToken": "Access Token value"
-    }
+    };
   
     let analyticsCommon = {
       screenResolution: "xxx", // Screen resolution 

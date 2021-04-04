@@ -14,13 +14,13 @@ describe("client activity flow tests", () => {
     
     const urlBase = 'http://localhost:3003';
     let clientd = '0001-0001';
-    let activityType = 'security';
+    let activityType = 'private';
 
     let headers = {
       origin: "foo.example.com",
       "User-Agent": "User-Agent value",
       "X-AccessToken": "Access Token value"
-    }
+    };
   
     var securityEvent = {
       eventId: uuid.v4(), // Hexadecimal string representing a uuid4 value.
