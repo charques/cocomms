@@ -3,16 +3,15 @@
 const {BatchRecorder} = require('zipkin');
 const clientEventZipkinLogger = require("./client-event-zipkin-logger");
   
-  function getRecorder(serviceName) {
-    const logger = clientEventZipkinLogger.getLogger({
-      url: 'dldkldkd'
-    });
-    
+  function getRecorder(baseUrl, clientId, loggerId, loggerDefaultParams) {
+
+    const logger = clientEventZipkinLogger.getLogger(baseUrl, clientId, loggerId, loggerDefaultParams);
+
     const batchRecorder = new BatchRecorder({logger});
     return ({
       record: (rec) => {
         const {spanId, traceId} = rec.traceId;
-        console.log(`${serviceName} recording: ${traceId}/${spanId} ${rec.annotation.toString()}`);
+        console.log(`${loggerId} recording: ${traceId}/${spanId} ${rec.annotation.toString()}`);
         batchRecorder.record(rec);
       }
     });

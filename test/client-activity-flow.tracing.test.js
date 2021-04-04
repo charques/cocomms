@@ -7,13 +7,13 @@ const opentracing = require('opentracing');
 const MockTracer = opentracing.MockTracer;
 var expect = chai.expect;
 
-describe("client activity flow tests", () => {
+describe("client activity TRACING tests", () => {
 
   before(function() {
     const xclientEventApi = require("../src/x-client-event-api");
   });
 
-  it("tracing activity post", () => {
+  it("tracing - custom trace formats", () => {
 
     return new Promise( async (resolve) => {
 
@@ -35,8 +35,20 @@ describe("client activity flow tests", () => {
         }
       ];
 
-      clientEventLib.init('http://localhost:3003', '0001-0001');
-      const logger = clientEventLib.getLogger('my-logger', {});
+      const clientEventAPIBaseUrl = 'http://localhost:3003';
+      const clientId = '0001-0001';
+      const loggerDefaultParams = {
+        level: 'info',
+        platform: 'web',
+        domainName: 'foo.example.com',
+        release: 'my-project-name@1.0.0',
+        dist: '14G60',
+        tags: { 'web_version': '4.0', 'context': 'production' },
+        metadata: { 'other': 'metadata'}
+      };
+
+      clientEventLib.init(clientEventAPIBaseUrl, clientId);
+      const logger = clientEventLib.getLogger('my-simple-logger', loggerDefaultParams);
 
       const response = await logger.send('tracing', traceDataArray);
 
@@ -47,7 +59,7 @@ describe("client activity flow tests", () => {
 
   });
     
-  it("tracing activity post 2", async () => {
+  it("tracing - opentracing standard spans", async () => {
 
     return new Promise( async (resolve) => {
       
@@ -101,9 +113,20 @@ describe("client activity flow tests", () => {
         }
       ];
     
-      clientEventLib.init('http://localhost:3003', '0001-0001');
-      const logger = clientEventLib.getLogger('my-logger');
-
+      const clientEventAPIBaseUrl = 'http://localhost:3003';
+      const clientId = '0001-0001';
+      const loggerDefaultParams = {
+        level: 'info',
+        platform: 'web',
+        domainName: 'foo.example.com',
+        release: 'my-project-name@1.0.0',
+        dist: '14G60',
+        tags: { 'web_version': '4.0', 'context': 'production' },
+        metadata: { 'other': 'metadata'}
+      };
+      clientEventLib.init(clientEventAPIBaseUrl, clientId);
+      const logger = clientEventLib.getLogger('my-logger', loggerDefaultParams);
+      
       const response = await logger.send('tracing', traceDataArray);
       expect(response.status).to.equal(200);
       expect(response.data).to.have.property('activityProcessed');
@@ -111,7 +134,7 @@ describe("client activity flow tests", () => {
     });
   });
 
-  it("tracing activity post 3", (done) => {
+  it("tracing - zipkin opentracing spans", (done) => {
     // https://github.com/openzipkin/zipkin-js-example/tree/master/web
 
     const fetch = require('node-fetch');
@@ -119,10 +142,22 @@ describe("client activity flow tests", () => {
     const {Tracer, ExplicitContext} = require('zipkin');
 
     const ctxImpl = new ExplicitContext();
-    const localServiceName = 'browser';
-    // TODO: pass context
-    const recorder = clientEventZipkinRecorder.getRecorder(localServiceName);
-    const tracer = new Tracer({ctxImpl, recorder, localServiceName});
+
+    const clientEventAPIBaseUrl = 'http://localhost:3003';
+    const clientId = '0001-0001';
+    const loggerId = 'browser-logger';
+    const loggerDefaultParams = {
+      level: 'info',
+      platform: 'web',
+      domainName: 'foo.example.com',
+      release: 'my-project-name@1.0.0',
+      dist: '14G60',
+      tags: { 'web_version': '4.0', 'context': 'production' },
+      metadata: { 'other': 'metadata'}
+    };
+
+    const recorder = clientEventZipkinRecorder.getRecorder(clientEventAPIBaseUrl, clientId, loggerId, loggerDefaultParams);
+    const tracer = new Tracer({ctxImpl, recorder, loggerId});
 
     // instrument fetch
     const wrapFetch = require('zipkin-instrumentation-fetch');
@@ -130,7 +165,7 @@ describe("client activity flow tests", () => {
 
     const log = text => console.log(text);
 
-    // wrap fetch call so that it is traced
+    // wrap fetch call so that it is traced. It fails... no service running.
     zipkinFetch('http://localhost:8081/')
       .then(response => (response.text()))
       .then(text => log(text))
