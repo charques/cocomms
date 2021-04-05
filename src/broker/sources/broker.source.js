@@ -1,5 +1,5 @@
 const redis = require('redis');
-var brokerService = require('../services/broker.service')
+var brokerService = require('../services/broker.service');
 
 exports.init = function init() {
     const subscriber = redis.createClient();
@@ -14,4 +14,4 @@ exports.init = function init() {
     });
 
     subscriber.subscribe("comms-broker");
-}
+};

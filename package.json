@@ -3,7 +3,7 @@
     "version": "0.0.1",
     "description": "my coccoms app",
     "scripts": {
-        "test": "./node_modules/.bin/mocha 'test/**/*.js' --recursive --timeout 60000 --exit",
+        "test": "./node_modules/.bin/nyc mocha 'test/**/*.js' --recursive --timeout 60000 --exit",
         "test-junit": "./node_modules/.bin/mocha 'test/**/*.js' --recursive --reporter mocha-junit-reporter --timeout 60000 --exit"
     },
     "dependencies": {

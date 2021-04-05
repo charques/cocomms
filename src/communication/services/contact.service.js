@@ -8,4 +8,4 @@ exports.getContactsByProfile = async function(profileId, type) {
         console.error(err);
         return [];
     }
-}
+};

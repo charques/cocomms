@@ -5,11 +5,11 @@ exports.renderTemplate = async function(templateId, templateParams) {
         let data = {
             templateId,
             templateParams
-        }
+        };
         const resp = await axios.post('http://localhost:3002/render', data);
         return resp.data;
     } catch (err) {
         console.error(err);
         return [];
     }
-}
+};

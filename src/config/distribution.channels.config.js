@@ -11,8 +11,8 @@ let channelConfig = {
     'my-inbound-channel': {
         type: 'inbound'
     }
-}
+};
 
  exports.configByChannelId = function (channelId) {
     return channelConfig[channelId];
- }
+ };

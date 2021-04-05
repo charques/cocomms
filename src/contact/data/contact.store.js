@@ -21,9 +21,9 @@ let contacts = {
             address: '+315555555'
         }
     ]
-}
+};
 
 exports.getContactsByProfile = function(profileId) {
     if (contacts[profileId] == null) return [];
     return contacts[profileId];
-}
+};

@@ -1,4 +1,4 @@
-const clientEventConsumptionConfig = require('../config/client-event.consumption.config')
+const clientEventConsumptionConfig = require('../config/client-event.consumption.config');
 
 exports.logActivity = async function (clientId, activityType, activityDetails) {
 
@@ -9,4 +9,4 @@ exports.logActivity = async function (clientId, activityType, activityDetails) {
     }
     
     return true;
-}
+};

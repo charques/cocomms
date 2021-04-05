@@ -134,7 +134,7 @@ describe("client activity TRACING tests", () => {
     });
   });
 
-  it("tracing - zipkin opentracing spans", (done) => {
+  it("tracing - zipkin traces", (done) => {
     // https://github.com/openzipkin/zipkin-js-example/tree/master/web
 
     const fetch = require('node-fetch');

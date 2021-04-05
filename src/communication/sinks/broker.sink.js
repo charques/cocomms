@@ -7,6 +7,6 @@ exports.send = async function (communication) {
     publisher.publish("comms-broker", JSON.stringify(communication));
     
     return communication.commId;
-}
+};
 
 

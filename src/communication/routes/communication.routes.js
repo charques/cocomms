@@ -1,7 +1,7 @@
 var router = require('express').Router();
-var communicationService = require('../services/communication.service')
+var communicationService = require('../services/communication.service');
 
-router.post('/communication', async function(req, res, next){
+router.post('/communication', async function(req, res, next) {
   var commRequest = req.body;
   console.log('/communication ' + JSON.stringify(commRequest));
 

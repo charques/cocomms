@@ -1,5 +1,5 @@
 var router = require('express').Router();
-var contactService = require('../services/contact.service')
+var contactService = require('../services/contact.service');
 
 router.get('/contact', async function(req, res, next){
   let profileId = req.query.profileId;

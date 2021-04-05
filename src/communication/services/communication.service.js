@@ -22,12 +22,12 @@ exports.sendCommunication = async function (commRequest) {
                 type: channelConfig.type,
                 address: contactItem.address, 
                 message: renderedTemplate
-            }
+            };
             var commId = await brokerSink.send(commObj);
             commIds.push(commId);
-        };
+        }
         return commIds;
     } catch (e) {
-        throw Error('Error communication ' + JSON.stringify(e))
+        throw Error('Error communication ' + JSON.stringify(e));
     }
-}
+};
