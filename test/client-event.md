@@ -75,12 +75,13 @@ input:
     - $ref: '#/parameters/X-ING-PROFILE-ID'
     eventName: string
 
-Decisions:
+Use case - Event Publish:
 - Input: 
     - common wrapper - clientId + activityType
         - activityType: tracing, analytics, security, ...
         - activityEvent: 
     - declarative body
+    - customer if present?
 - Mapping to event schema:
     - map 1 to 1 per activityType - no transformations
 - Data segregation:
@@ -92,6 +93,18 @@ Decisions:
 - onboarding
     - based on clientId and activityType - 
     
+
+Use Case - Event Push:
+
+
+Use Case - Event Loop:
+    1. Consumer - post client event
+    2. Client Event API - publish event (event loop - 1)
+    3. SDA - consumes (event loop - 1) - publish (event loop - 2)
+    4. Client Event API . consumes (event loop - 2) AND (execute REST callback OR publish event 3)
+    5. Consumer - consumes Client Event (event loop - 3) OR RESt callback 
+
+
 
 INPUT POST
 interface
